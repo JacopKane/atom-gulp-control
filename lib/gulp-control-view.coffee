@@ -48,7 +48,7 @@ class GulpControlView extends View
   getGulpCwd: (cwd) ->
     dirs = []
 
-    gfregx = /^gulpfile\.[js|coffee]/i
+    gfregx = /^gulpfile\.[js|babel.js|coffee]/i
     for entry in fs.readdirSync(cwd) when entry.indexOf('.') isnt 0
       if gfregx.test(entry)
         @gulpFile = entry
@@ -75,7 +75,7 @@ class GulpControlView extends View
 
     projpath = atom.project.getPaths()[0]
     unless @gulpCwd = @getGulpCwd(projpath)
-      @writeOutput "Unable to find #{projpath}/**/gulpfile.[js|coffee]", 'error'
+      @writeOutput "Unable to find #{projpath}/**/gulpfile.[js|babel.js|coffee]", 'error'
       return
 
     @writeOutput "Using #{@gulpCwd}/#{@gulpFile}"
